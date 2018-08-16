@@ -2,18 +2,12 @@ package id.co.asyst.prasetya.logintest.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserRequest {
+public class TaskRequest {
+
     String method;
     @SerializedName("param")
-    User userAndPass;
+    TaskUser taskUser;
 
-    public User getUserAndPass() {
-        return userAndPass;
-    }
-
-    public void setUserAndPass(User userAndPass) {
-        this.userAndPass = userAndPass;
-    }
     public String getMethod() {
         return method;
     }
@@ -22,4 +16,11 @@ public class UserRequest {
         this.method = method;
     }
 
+    public TaskUser getTaskUser() {
+        return taskUser;
+    }
+
+    public void setTaskUser(TaskUser taskUser) {
+        this.taskUser = taskUser;
+    }
 }

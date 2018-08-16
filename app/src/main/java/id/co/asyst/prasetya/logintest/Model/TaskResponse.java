@@ -2,20 +2,11 @@ package id.co.asyst.prasetya.logintest.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserResponse {
-
+public class TaskResponse {
     String status;
     String message;
     @SerializedName("data")
-    UserData data_user;
-
-    public UserData getData_user() {
-        return data_user;
-    }
-
-    public void setData_user(UserData data_user) {
-        this.data_user = data_user;
-    }
+    Task task;
 
     public String getStatus() {
         return status;
@@ -31,5 +22,13 @@ public class UserResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 }

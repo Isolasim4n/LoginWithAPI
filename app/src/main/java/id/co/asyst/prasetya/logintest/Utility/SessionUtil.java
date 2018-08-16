@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class SessionUtil {
 
     public static final String USERNAME = "username";
+    public static final String NAME = "name";
     Context mContext;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -17,14 +18,19 @@ public class SessionUtil {
         editor = sharedPreferences.edit();
     }
 
-    public void saveName(String username) {
+    public void saveName(String username, String name) {
         editor.putString(USERNAME, username);
+        editor.putString(NAME, name);
         editor.commit();
     }
 
-    public String loadName() {
+    public String loadUserName() {
         String username = sharedPreferences.getString(USERNAME, "");
         return username;
     }
 
+    public String loadName() {
+        String name = sharedPreferences.getString(NAME, "");
+        return name;
+    }
 }
