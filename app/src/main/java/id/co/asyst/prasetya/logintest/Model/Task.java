@@ -1,12 +1,29 @@
 package id.co.asyst.prasetya.logintest.Model;
 
 public class Task {
-
+    String customer_id;
     String customer_name;
     String customer_address;
     String taskActivity_id;
+    String task_id;
     String startDate;
     String finishDate;
+
+    public String getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(String customer_id) {
+        this.customer_id = customer_id;
+    }
+
+    public String getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(String task_id) {
+        this.task_id = task_id;
+    }
 
     public String getCustomer_name() {
         return customer_name;

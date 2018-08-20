@@ -11,19 +11,20 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import id.co.asyst.prasetya.logintest.Model.Task;
 import id.co.asyst.prasetya.logintest.R;
+import id.co.asyst.prasetya.logintest.Utility.DateUtil;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
     Context mContext;
     ArrayList<Task> mListTask;
+    OnItemClickListener itemClick;
 
-    public TaskAdapter(Context mContext, ArrayList<Task> mListTask) {
+    public TaskAdapter(Context mContext, ArrayList<Task> mListTask, OnItemClickListener itemClick) {
         this.mContext = mContext;
         this.mListTask = mListTask;
+        this.itemClick = itemClick;
     }
 
     @NonNull
@@ -35,11 +36,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Task task = mListTask.get(position);
+        final Task task = mListTask.get(position);
+        holder.customer_id_textView.setText(task.getCustomer_id());
         holder.name_textView.setText(task.getCustomer_name());
         holder.alamat_textView.setText(task.getCustomer_address());
-        holder.id_textView.setText(task.getTaskActivity_id());
-        holder.tanggal_textView.setText(task.getStartDate());
+        holder.id_textView.setText("#" + task.getTask_id());
+        holder.tanggal_textView.setText(DateUtil.formatDate("yyyy-MM-dd", "dd MMMM yyyy", task.getStartDate()));
+        if (task.getFinishDate() != null) {
+            holder.tanggal_selesai_textView.setVisibility(View.VISIBLE);
+            holder.tanggal_selesai_textView.setText(DateUtil.formatDate("yyyy-MM-dd", "dd MMMM yyyy", task.getFinishDate()));
+        }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClick.onItemClick(task);
+            }
+        });
 
     }
 
@@ -48,22 +61,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         return mListTask.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Task task);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.name_client_textView)
+
         TextView name_textView;
-        @BindView(R.id.alamat_client_textView)
         TextView alamat_textView;
-        @BindView(R.id.id_client_textView)
         TextView id_textView;
-        @BindView(R.id.tanggal_mulai_client_textView)
+        TextView customer_id_textView;
         TextView tanggal_textView;
-        @BindView(R.id.card_view)
+        TextView tanggal_selesai_textView;
         CardView cardView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(this.itemView);
+            name_textView = itemView.findViewById(R.id.name_client_textView);
+            alamat_textView = itemView.findViewById(R.id.alamat_client_textView);
+            id_textView = itemView.findViewById(R.id.id_client_textView);
+            customer_id_textView = itemView.findViewById(R.id.client_id_textView);
+            tanggal_textView = itemView.findViewById(R.id.tanggal_mulai_client_textView);
+            tanggal_selesai_textView = itemView.findViewById(R.id.tanggal_selesai_client_textView);
+
+            cardView = itemView.findViewById(R.id.card_view);
 
         }
     }
